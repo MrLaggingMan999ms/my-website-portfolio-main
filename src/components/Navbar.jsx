@@ -18,7 +18,7 @@ const Navbar = () => {
         >
           <FaGoogle />
         </a>
-        <a
+        <a        
           href="https://www.google.com/"
           target="_blank"
           rel="noopener noreferrer"
