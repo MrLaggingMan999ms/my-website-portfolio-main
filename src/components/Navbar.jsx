@@ -1,6 +1,7 @@
 import React from "react";
 import logo from "../assets/LLogo.png";
 import { FaGoogle } from "react-icons/fa";
+import { FaYoutube } from "react-icons/fa";
 const Navbar = () => {
   return (
     <nav className="flex items-center justify-between py-6">
@@ -19,12 +20,12 @@ const Navbar = () => {
           <FaGoogle />
         </a>
         <a        
-          href="https://www.google.com/"
+          href="https://www.youtube.com/@mrlaggingman999ms"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Google"
+          aria-label="Youtube"
         >
-          <FaGoogle />
+          <FaYoutube />
         </a>
         <a
           href="https://www.google.com/"
