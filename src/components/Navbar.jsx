@@ -38,10 +38,10 @@ const Navbar = () => {
           <FaGithub />
         </a>
         <a
-          href="https://www.google.com/"
+          href="https://discord.com/users/1037734268467695667"
           target="_blank"
           rel="noopener noreferrer"
-          aria-label="Google"
+          aria-label="Discord"
         >
           <FaDiscord />
         </a>
