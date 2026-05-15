@@ -1,2 +1,10 @@
 @import 'tailwindcss';
 
+body {
+  font-family:
+    Inter,
+    "Noto Sans Myanmar",
+    "Pyidaungsu",
+    sans-serif;
+}
+

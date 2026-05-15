@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React from "react";
 import "./index.css";
 import Navbar from "./components/Navbar";
 import Profile from "./components/Profile";
@@ -8,8 +8,7 @@ import Experience from "./components/Experience";
 import Contact from "./components/Contact";
 
 function App() {
-  const [count, setCount] = useState(0);
-
+  
   return (
     <div className="overflow-x-hidden text-stone-300 antialiased">
       <div className="fixed inset-0 -z-10">
