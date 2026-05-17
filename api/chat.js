@@ -19,12 +19,12 @@ Rules:
 - Be friendly, helpful, and concise
 - Use markdown formatting for better readability`;
 
-function buildChatMessages(chatHistory = [], newUserMessage = null) {
-  const messages = [{ role: "system", content: CHAT_SYSTEM_PROMPT }, ...chatHistory];
-  if (newUserMessage) {
-    messages.push({ role: "user", content: newUserMessage });
-  }
-  return messages;
+// Combines the system prompt with the conversation history array sent from React
+function buildChatMessages(chatHistory = []) {
+  return [
+    { role: "system", content: CHAT_SYSTEM_PROMPT },
+    ...chatHistory
+  ];
 }
 
 function parseGroqApiError(errorResponseBody) {
@@ -40,17 +40,27 @@ function extractChatReply(responseData) {
 }
 
 export default async function handler(request, response) {
+  // Setup manual CORS headers since we aren't using traditional Express middleware anymore
+  response.setHeader("Access-Control-Allow-Origin", "*");
+  response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
+  response.setHeader("Access-Control-Allow-Headers", "Content-Type");
+
+  if (request.method === "OPTIONS") {
+    return response.status(200).end();
+  }
+
   if (request.method !== "POST") {
     response.setHeader("Allow", "POST");
     return response.status(405).json({ error: "Method not allowed" });
   }
 
   try {
-    const { message: userMessage, messages: chatHistory = [] } = request.body;
+    // FIX: Extracting only 'messages' because AI.jsx passes the entire array at once
+    const { messages: chatHistory = [] } = request.body;
 
     const apiPayload = {
       model: DEFAULT_MODEL,
-      messages: buildChatMessages(chatHistory, userMessage),
+      messages: buildChatMessages(chatHistory),
     };
 
     const groqApiResponse = await fetch(GROQ_API_URL, {
