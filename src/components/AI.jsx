@@ -232,7 +232,7 @@ function AI() {
                           {message.isStreaming && index === chatHistory.length - 1 ? animatedContent : message.content}
                         </ReactMarkdown>
                         {message.isStreaming && index === chatHistory.length - 1 && (
-                          <span className="inline-block w-2 h-4 bg-violet-400 animate-pulse ml-1"></span>
+                          <span className="inline-block w-2 h-4 bg-slate-400 animate-pulse ml-1"></span>
                         )}
                       </div>
                     ) : (
@@ -271,7 +271,7 @@ function AI() {
                   <button
                     onClick={sendMessage}
                     disabled={!userInput.trim()}
-                    className="bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl px-4 py-2.5 transition-all active:scale-95"
+                    className="bg-gradient-to-r from-zinc-700 to-slate-800 hover:from-zinc-600 hover:to-slate-700 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-xl px-4 py-2.5 transition-all active:scale-95"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
                       <path d="M10.894 2.553a1 1 0 00-1.788 0l-7 14a1 1 0 001.169 1.409l5-1.429A1 1 0 009 15.571V11a1 1 0 112 0v4.571a1 1 0 00.725.962l5 1.428a1 1 0 001.17-1.408l-7-14z" />
