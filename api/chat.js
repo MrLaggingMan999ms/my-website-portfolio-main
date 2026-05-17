@@ -19,12 +19,15 @@ Rules:
 - Be friendly, helpful, and concise
 - Use markdown formatting for better readability`;
 
-// Combines the system prompt with the conversation history array sent from React
-function buildChatMessages(chatHistory = []) {
-  return [
+function buildChatMessages(chatHistory, newUserMessage = null) {
+  const messages = [
     { role: "system", content: CHAT_SYSTEM_PROMPT },
-    ...chatHistory
+    ...chatHistory,
   ];
+  if (newUserMessage) {
+    messages.push({ role: "user", content: newUserMessage });
+  }
+  return messages;
 }
 
 function parseGroqApiError(errorResponseBody) {
@@ -35,12 +38,8 @@ function parseGroqApiError(errorResponseBody) {
   }
 }
 
-function extractChatReply(responseData) {
-  return responseData?.choices?.[0]?.message?.content || null;
-}
-
 export default async function handler(request, response) {
-  // Setup manual CORS headers since we aren't using traditional Express middleware anymore
+  // Manual CORS settings for Vercel Serverless environment
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -55,7 +54,7 @@ export default async function handler(request, response) {
   }
 
   try {
-    // FIX: Extracting only 'messages' because AI.jsx passes the entire array at once
+    // Standardizing to read the 'messages' array passed by AI.jsx
     const { messages: chatHistory = [] } = request.body;
 
     const apiPayload = {
@@ -66,7 +65,7 @@ export default async function handler(request, response) {
     const groqApiResponse = await fetch(GROQ_API_URL, {
       method: "POST",
       headers: {
-        Authorization: `Bearer ${process.env.GROQ_API_KEY}`,
+        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(apiPayload),
@@ -78,19 +77,18 @@ export default async function handler(request, response) {
     if (!groqApiResponse.ok) {
       const errorDetails = parseGroqApiError(responseText);
       const errorMessage = errorDetails.error?.message || errorDetails.message || "API request failed";
-      console.error("Groq API error:", groqApiResponse.status, errorMessage);
       return response.status(500).json({ error: errorMessage });
     }
 
-    const reply = extractChatReply(responseData);
-    if (!reply) {
-      console.error("Groq API returned no response content", responseData);
-      return response.status(500).json({ error: "No response from AI" });
-    }
+    return response.status(200).json({
+      reply: responseData.choices?.[0]?.message?.content || "No response content generated."
+    });
 
-    return response.status(200).json({ reply });
   } catch (error) {
-    console.error("Chat endpoint error:", error);
-    return response.status(500).json({ reply: "Something went wrong.", error: error.message });
+    console.error("Endpoint error:", error.message);
+    return response.status(500).json({
+      reply: "Something went wrong.",
+      error: error.message,
+    });
   }
 }
