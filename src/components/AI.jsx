@@ -200,7 +200,7 @@ function AI() {
             <div className="flex-1 overflow-y-auto p-4 space-y-4 bg-neutral-900/50 min-h-[300px] max-h-[400px]">
               {chatHistory.length === 0 && (
                 <div className="flex flex-col items-center justify-center h-full text-center">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-violet-600 to-purple-600 flex items-center justify-center mb-3">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-r from-zinc-700 to-slate-800 flex items-center justify-center mb-3">
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                     </svg>
@@ -215,7 +215,7 @@ function AI() {
                   <div className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
                     message.role === "user"
                       ? "bg-neutral-700"
-                      : "bg-gradient-to-r from-violet-600 to-purple-600"
+                      : "bg-gradient-to-r from-zinc-700 to-slate-800"
                   }`}>
                     <span className="text-white text-xs font-bold">
                       {message.role === "user" ? "You" : "AI"}
@@ -255,7 +255,7 @@ function AI() {
                   onChange={(event) => setUserInput(event.target.value)}
                   onKeyDown={(event) => event.key === 'Enter' && !event.shiftKey && sendMessage()}
                   disabled={isStreaming}
-                  className="flex-1 bg-neutral-800 text-stone-200 placeholder-stone-500 rounded-xl px-4 py-2.5 text-sm border border-neutral-700 focus:border-violet-500 focus:outline-none transition-colors disabled:opacity-50"
+                    className="flex-1 bg-neutral-800 text-stone-200 placeholder-stone-500 rounded-xl px-4 py-2.5 text-sm border border-neutral-700 focus:border-slate-500 focus:outline-none transition-colors disabled:opacity-50"
                 />
                 {isStreaming ? (
                   <button
