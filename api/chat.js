@@ -65,6 +65,7 @@ export default async function handler(request, response) {
     const groqApiResponse = await fetch(GROQ_API_URL, {
       method: "POST",
       headers: {
+        // eslint-disable-next-line no-undef
         "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
         "Content-Type": "application/json",
       },
