@@ -156,7 +156,7 @@ function AI() {
       {!isChatOpen && (
         <button
           onClick={() => setIsChatOpen(true)}
-          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-violet-600 to-purple-600 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
+          className="fixed bottom-6 right-6 z-50 w-14 h-14 bg-gradient-to-r from-zinc-700 to-slate-800 rounded-full shadow-2xl flex items-center justify-center hover:scale-110 transition-transform"
         >
           <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
@@ -168,7 +168,7 @@ function AI() {
         <div className="fixed bottom-6 right-6 z-50 w-80 sm:w-96 animate-in fade-in slide-in-from-bottom-4 duration-300">
           <div className="bg-neutral-900/95 backdrop-blur-sm border border-neutral-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[600px]">
             {/* Header */}
-            <div className="bg-gradient-to-r from-violet-600 to-purple-600 px-4 py-3 flex items-center justify-between">
+              <div className="bg-gradient-to-r from-zinc-700 to-slate-800 px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className={`w-2 h-2 rounded-full ${isStreaming ? 'bg-yellow-400 animate-pulse' : 'bg-green-400'}`}></div>
                 <span className="text-white font-semibold text-sm">AI Assistant</span>
@@ -223,7 +223,7 @@ function AI() {
                   </div>
                   <div className={`max-w-[80%] rounded-2xl px-4 py-2 ${
                     message.role === "user"
-                      ? "bg-violet-600 text-white rounded-tr-md"
+                      ? "bg-zinc-700 text-white rounded-tr-md"
                       : "bg-neutral-800 text-stone-300 rounded-tl-md"
                   }`}>
                     {message.role === "assistant" ? (
