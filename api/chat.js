@@ -61,28 +61,49 @@ export default async function handler(request, response) {
 
     const { messages: chatHistory = [] } = request.body;
 
-    const apiPayload = {
-      model: DEFAULT_MODEL,
-      messages: buildChatMessages(chatHistory),
-    };
+    const MODELS = ["gemini-2.5-flash", "gemini-3.5-flash", "gemini-2.5-flash-lite"];
+    let lastError = null;
+    let responseData = null;
+    let success = false;
 
-    // 3. Make the request using your Google AI Studio API key
-    const geminiApiResponse = await fetch(GEMINI_API_URL, {
-      method: "POST",
-      headers: {
-        "Authorization": `Bearer ${process.env.GEMINI_API_KEY}`, // Ensure this is set in Vercel/.env
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(apiPayload),
-    });
+    for (const model of MODELS) {
+      try {
+        console.log(`Attempting chat completion with model: ${model}`);
+        const apiPayload = {
+          model: model,
+          messages: buildChatMessages(chatHistory),
+        };
 
-    const responseText = await geminiApiResponse.text();
-    const responseData = responseText ? JSON.parse(responseText) : {};
+        const geminiApiResponse = await fetch(GEMINI_API_URL, {
+          method: "POST",
+          headers: {
+            "Authorization": `Bearer ${process.env.GEMINI_API_KEY}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(apiPayload),
+        });
 
-    if (!geminiApiResponse.ok) {
-      const errorDetails = parseApiError(responseText);
-      const errorMessage = errorDetails.error?.message || errorDetails.message || `API request failed with status ${geminiApiResponse.status}. Raw response: ${responseText}`;
-      return response.status(500).json({ error: errorMessage });
+        const responseText = await geminiApiResponse.text();
+        const parsedData = responseText ? JSON.parse(responseText) : {};
+
+        if (geminiApiResponse.ok) {
+          responseData = parsedData;
+          success = true;
+          break;
+        } else {
+          const errorDetails = parseApiError(responseText);
+          const errorMessage = errorDetails.error?.message || errorDetails.message || `API request failed with status ${geminiApiResponse.status}. Raw response: ${responseText}`;
+          lastError = new Error(`Model ${model} failed: ${errorMessage}`);
+          console.warn(`Model ${model} failed. Trying fallback... Error: ${errorMessage}`);
+        }
+      } catch (err) {
+        lastError = err;
+        console.warn(`Request failed for model ${model}: ${err.message}. Trying fallback...`);
+      }
+    }
+
+    if (!success) {
+      return response.status(500).json({ error: lastError?.message || "All models failed to respond." });
     }
 
     // 4. The response structure remains perfectly intact!
