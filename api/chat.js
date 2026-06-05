@@ -3,8 +3,10 @@ import portfolioKnowledge from "../data/knowledge.js";
 
 dotenv.config();
 
-const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const DEFAULT_MODEL = "llama-3.1-8b-instant";
+// 1. Point to Google's OpenAI-compatible endpoint
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+// 2. Choose your Gemini model
+const DEFAULT_MODEL = "gemini-2.5-flash"; 
 
 const CHAT_SYSTEM_PROMPT = `You are my portfolio AI assistant.
 
@@ -30,7 +32,7 @@ function buildChatMessages(chatHistory, newUserMessage = null) {
   return messages;
 }
 
-function parseGroqApiError(errorResponseBody) {
+function parseApiError(errorResponseBody) {
   try {
     return JSON.parse(errorResponseBody);
   } catch {
@@ -39,7 +41,6 @@ function parseGroqApiError(errorResponseBody) {
 }
 
 export default async function handler(request, response) {
-  // Manual CORS settings for Vercel Serverless environment
   response.setHeader("Access-Control-Allow-Origin", "*");
   response.setHeader("Access-Control-Allow-Methods", "POST, OPTIONS");
   response.setHeader("Access-Control-Allow-Headers", "Content-Type");
@@ -54,7 +55,6 @@ export default async function handler(request, response) {
   }
 
   try {
-    // Standardizing to read the 'messages' array passed by AI.jsx
     const { messages: chatHistory = [] } = request.body;
 
     const apiPayload = {
@@ -62,25 +62,26 @@ export default async function handler(request, response) {
       messages: buildChatMessages(chatHistory),
     };
 
-    const groqApiResponse = await fetch(GROQ_API_URL, {
+    // 3. Make the request using your Google AI Studio API key
+    const geminiApiResponse = await fetch(GEMINI_API_URL, {
       method: "POST",
       headers: {
-        // eslint-disable-next-line no-undef
-        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Authorization": `Bearer ${process.env.GEMINI_API_KEY}`, // Ensure this is set in Vercel/.env
         "Content-Type": "application/json",
       },
       body: JSON.stringify(apiPayload),
     });
 
-    const responseText = await groqApiResponse.text();
+    const responseText = await geminiApiResponse.text();
     const responseData = responseText ? JSON.parse(responseText) : {};
 
-    if (!groqApiResponse.ok) {
-      const errorDetails = parseGroqApiError(responseText);
+    if (!geminiApiResponse.ok) {
+      const errorDetails = parseApiError(responseText);
       const errorMessage = errorDetails.error?.message || errorDetails.message || "API request failed";
       return response.status(500).json({ error: errorMessage });
     }
 
+    // 4. The response structure remains perfectly intact!
     return response.status(200).json({
       reply: responseData.choices?.[0]?.message?.content || "No response content generated."
     });
