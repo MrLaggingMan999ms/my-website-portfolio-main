@@ -2,7 +2,7 @@ import express from "express";
 import cors from "cors";
 import path from "path";
 import { fileURLToPath } from "url";
-import chatRouter from "../../routes/chat.js";
+import chatRouter from "../api/chat.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const app = express();
