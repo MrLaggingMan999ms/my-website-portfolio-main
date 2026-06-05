@@ -43,6 +43,10 @@ function parseGeminiApiError(errorResponseBody) {
 
 router.post("/", async (request, response, next) => {
   try {
+    if (!process.env.GEMINI_API_KEY) {
+      return response.status(500).json({ error: "GEMINI_API_KEY is not defined in the environment variables." });
+    }
+
     const { messages: chatHistory = [] } = request.body;
 
     const apiPayload = {
@@ -64,7 +68,7 @@ router.post("/", async (request, response, next) => {
 
     if (!geminiApiResponse.ok) {
       const errorDetails = parseGeminiApiError(responseText);
-      const errorMessage = errorDetails.error?.message || errorDetails.message || "API request failed";
+      const errorMessage = errorDetails.error?.message || errorDetails.message || `API request failed with status ${geminiApiResponse.status}. Raw response: ${responseText}`;
       return response.status(500).json({ error: errorMessage });
     }
 

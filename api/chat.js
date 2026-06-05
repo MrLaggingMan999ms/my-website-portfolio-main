@@ -55,6 +55,10 @@ export default async function handler(request, response) {
   }
 
   try {
+    if (!process.env.GEMINI_API_KEY) {
+      return response.status(500).json({ error: "GEMINI_API_KEY is not configured in Vercel environment variables. Please add it to your Vercel project settings." });
+    }
+
     const { messages: chatHistory = [] } = request.body;
 
     const apiPayload = {
@@ -77,7 +81,7 @@ export default async function handler(request, response) {
 
     if (!geminiApiResponse.ok) {
       const errorDetails = parseApiError(responseText);
-      const errorMessage = errorDetails.error?.message || errorDetails.message || "API request failed";
+      const errorMessage = errorDetails.error?.message || errorDetails.message || `API request failed with status ${geminiApiResponse.status}. Raw response: ${responseText}`;
       return response.status(500).json({ error: errorMessage });
     }
 
