@@ -3,9 +3,9 @@ import portfolioKnowledge from "../data/knowledge.js";
 
 dotenv.config();
 
-// 1. Point to Google's OpenAI-compatible endpoint
+// Point to OpenAI-compatible endpoint
 const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
-// 2. Choose your Gemini model
+// Choose your model
 const DEFAULT_MODEL = "gemini-2.5-flash"; 
 
 const CHAT_SYSTEM_PROMPT = `You are my portfolio AI assistant.
