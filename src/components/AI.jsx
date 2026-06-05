@@ -165,7 +165,7 @@ function AI() {
       )}
 
       {isChatOpen && (
-        <div className="fixed bottom-6 right-6 z-50 w-80 sm:w-96 animate-in fade-in slide-in-from-bottom-4 duration-300">
+        <div className="fixed bottom-6 right-6 z-50 w-80 max-w-[calc(100vw-3rem)] sm:w-96 animate-in fade-in slide-in-from-bottom-4 duration-300">
           <div className="bg-neutral-900/95 backdrop-blur-sm border border-neutral-700 rounded-2xl shadow-2xl overflow-hidden flex flex-col max-h-[600px]">
             {/* Header */}
               <div className="bg-gradient-to-r from-zinc-700 to-slate-800 px-4 py-3 flex items-center justify-between">

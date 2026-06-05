@@ -44,34 +44,9 @@ I am a passionate software engineer specializing in modern web development and A
   - Markdown rendering for rich responses
   - Conversation history persistence
   - Responsive design with dark theme
-- **Link:** [Portfolio](https://your-portfolio.com)
-
-### 2. E-Commerce Platform
-- **Tech Stack:** React, Node.js, MongoDB, Express
-- **Features:**
-  - User authentication & authorization
-  - Product catalog with search & filters
-  - Shopping cart & checkout flow
-  - Admin dashboard
-- **Highlights:** Implemented secure payment integration
-
-### 3. Task Management App
-- **Tech Stack:** React, Firebase, Tailwind CSS
-- **Features:**
-  - Real-time collaboration
-  - Drag-and-drop interface
-  - Due date notifications
-  - Team workspaces
-- **Highlights:** Supports 1000+ concurrent users
+- **Link:** [Portfolio](https://my-website-portfolio-main.vercel.app)
 
 ## Professional Experience
-
-### Software Engineer (Freelance)
-*2023 - Present*
-- Developed 10+ web applications for clients worldwide
-- Specialized in React and Node.js solutions
-- Implemented AI features using LLM APIs
-- Achieved 95% client satisfaction rate
 
 ### Open Source Contributor
 - Contributed to React and Node.js libraries
@@ -81,7 +56,6 @@ I am a passionate software engineer specializing in modern web development and A
 ## Education & Certifications
 - Self-taught developer with 3+ years of experience
 - Continuous learning through online platforms
-- Active in developer communities and hackathons
 
 ## Interests & Hobbies
 - AI/ML research and applications
@@ -90,7 +64,7 @@ I am a passionate software engineer specializing in modern web development and A
 - Gaming and game development
 
 ## Contact Information
-- **Email:** example@email.com
+- **Email:** mrlaggingman999ms@gmail.com
 - **GitHub:** github.com/MrLaggingMan999ms
 - **LinkedIn:** linkedin.com/in/mrlaggingman999ms
 - **Availability:** Open to freelance projects and full-time opportunities

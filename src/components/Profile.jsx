@@ -43,17 +43,17 @@ const Profile = () => {
           >
             <motion.h2
              variants={childVariants}
-             className="pb-2 text-4xl tracking-tighter lg:text-6xl">
+             className="pb-2 text-3xl tracking-tighter sm:text-4xl lg:text-6xl">
               Aung Kyaw Kyaw Myat
             </motion.h2>
             <motion.span 
             variants={childVariants}
-            className="bg-gradient-to-r from-stone-300 to-stone-600 bg-clip-text text-3xl tracking-tight text-transparent">
+             className="bg-gradient-to-r from-stone-300 to-stone-600 bg-clip-text text-2xl tracking-tight text-transparent sm:text-3xl">
               Full Stack Developer
             </motion.span>
             <motion.p 
             variants={childVariants}
-            className="my-2 max-w-lg py-6 text-xl leading-relaxed tracking-tighter">
+             className="my-2 max-w-lg py-6 text-lg leading-relaxed tracking-tighter sm:text-xl">
               {PROFILE_CONTENT}
             </motion.p>
             <motion.a

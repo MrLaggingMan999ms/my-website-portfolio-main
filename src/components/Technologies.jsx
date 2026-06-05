@@ -32,7 +32,7 @@ const Technologies = () => {
         whileInView={{ opacity: 1, x: 0 }}
         initial={{ opacity: 0, x: -100 }}
         transition={{ duration: 1.5 }}
-        className="flex flex-warp items-center justify-center gap-4"
+        className="flex flex-wrap items-center justify-center gap-4"
       >
         <motion.div
           initial="initial"
@@ -40,7 +40,7 @@ const Technologies = () => {
           variants={iconVariants(2.5)}
           className="p-4"
         >
-          <RiReactjsLine className="text-7xl text-cyan-400" />
+          <RiReactjsLine className="text-5xl text-cyan-400 sm:text-7xl" />
         </motion.div>
         <motion.div
           initial="initial"
@@ -48,7 +48,7 @@ const Technologies = () => {
           variants={iconVariants(3)}
           className="p-4"
         >
-          <TbBrandNextjs className="text-7xl" />
+          <TbBrandNextjs className="text-5xl sm:text-7xl" />
         </motion.div>
         <motion.div
           initial="initial"
@@ -56,7 +56,7 @@ const Technologies = () => {
           variants={iconVariants(5)}
           className="p-4"
         >
-          <FaNodeJs className="text-7xl text-green-500" />
+          <FaNodeJs className="text-5xl text-green-500 sm:text-7xl" />
         </motion.div>
       </motion.div>
     </div>
