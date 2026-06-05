@@ -1,10 +1,6 @@
 @import 'tailwindcss';
 
-body {
-  font-family:
-    Inter,
-    "Noto Sans Myanmar",
-    "Pyidaungsu",
-    sans-serif;
+@theme {
+  --font-sans: Inter, "Noto Sans Myanmar", "Pyidaungsu", ui-sans-serif, system-ui, sans-serif;
 }
 
