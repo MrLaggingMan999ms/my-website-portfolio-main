@@ -86,7 +86,7 @@ function AI() {
         const responseData = await apiResponse.json();
         setChatHistory(previous => previous.map((message, index) =>
           index === previous.length - 1
-            ? { ...message, content: responseData.reply || responseData.error || "No response", isStreaming: false }
+            ? { ...message, content: responseData.reply || responseData.error || "No response", isStreaming: true }
             : message
         ));
         setIsStreaming(false);

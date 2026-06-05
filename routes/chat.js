@@ -6,8 +6,8 @@ dotenv.config();
 
 const router = Router();
 
-const GROQ_API_URL = "https://api.groq.com/openai/v1/chat/completions";
-const DEFAULT_MODEL = "llama-3.1-8b-instant";
+const GEMINI_API_URL = "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions";
+const DEFAULT_MODEL = "gemini-2.5-flash";
 
 const CHAT_SYSTEM_PROMPT = `You are my portfolio AI assistant.
 
@@ -33,7 +33,7 @@ function buildChatMessages(chatHistory, newUserMessage = null) {
   return messages;
 }
 
-function parseGroqApiError(errorResponseBody) {
+function parseGeminiApiError(errorResponseBody) {
   try {
     return JSON.parse(errorResponseBody);
   } catch {
@@ -50,20 +50,20 @@ router.post("/", async (request, response, next) => {
       messages: buildChatMessages(chatHistory),
     };
 
-    const groqApiResponse = await fetch(GROQ_API_URL, {
+    const geminiApiResponse = await fetch(GEMINI_API_URL, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${process.env.GROQ_API_KEY}`,
+        "Authorization": `Bearer ${process.env.GEMINI_API_KEY}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify(apiPayload),
     });
 
-    const responseText = await groqApiResponse.text();
+    const responseText = await geminiApiResponse.text();
     const responseData = responseText ? JSON.parse(responseText) : {};
 
-    if (!groqApiResponse.ok) {
-      const errorDetails = parseGroqApiError(responseText);
+    if (!geminiApiResponse.ok) {
+      const errorDetails = parseGeminiApiError(responseText);
       const errorMessage = errorDetails.error?.message || errorDetails.message || "API request failed";
       return response.status(500).json({ error: errorMessage });
     }
@@ -82,3 +82,4 @@ router.post("/", async (request, response, next) => {
 });
 
 export default router;
+
